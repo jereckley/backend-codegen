@@ -1,5 +1,8 @@
 import {db} from "../db"
+import {QueryResolvers} from "../generated/graphql"
 
-export const getPosts = async () => {
-	return db.prismaExample.post.findMany()
+export const getPosts: QueryResolvers['getPosts'] = async () => {
+	const data = await db.prismaExample.post.findMany()
+	console.log(data)
+	return data;
 }
