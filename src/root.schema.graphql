@@ -1,0 +1,26 @@
+type User {
+  id:    ID!     
+  email: String!
+  name:  String
+  posts: [Post]
+}
+
+enum BookTypes {
+  HAPPY
+  SAD
+  BATTLE
+}
+
+type Post {
+  id:        ID!
+  title:     String!
+  content:   String
+  bookType:  BookTypes
+  published: Boolean
+  author:    User
+  authorId:  Int
+}
+
+type Query {
+	getPosts: [Post!]!
+}

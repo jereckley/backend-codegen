@@ -1,0 +1,5 @@
+{
+  "name": "Example Schema",
+  "schema": ["src/**/*.schema.graphql"]
+}
+
