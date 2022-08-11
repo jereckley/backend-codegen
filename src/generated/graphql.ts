@@ -20,12 +20,17 @@ export type Scalars = {
 
 export { BookTypes };
 
+export type Content = {
+  __typename?: 'Content';
+  text: Scalars['String'];
+};
+
 export type Post = {
   __typename?: 'Post';
   author?: Maybe<User>;
   authorId?: Maybe<Scalars['Int']>;
   bookType?: Maybe<BookTypes>;
-  content?: Maybe<Scalars['String']>;
+  content?: Maybe<Content>;
   id: Scalars['ID'];
   published?: Maybe<Scalars['Boolean']>;
   title: Scalars['String'];
@@ -116,6 +121,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   BookTypes: BookTypesEnum;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Content: ResolverTypeWrapper<Content>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Post: ResolverTypeWrapper<ResolvedPost>;
@@ -127,6 +133,7 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
+  Content: Content;
   ID: Scalars['ID'];
   Int: Scalars['Int'];
   Post: ResolvedPost;
@@ -137,11 +144,16 @@ export type ResolversParentTypes = {
 
 export type BookTypesResolvers = EnumResolverSignature<{ BATTLE?: any, HAPPY?: any, SAD?: any }, ResolversTypes['BookTypes']>;
 
+export type ContentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Content'] = ResolversParentTypes['Content']> = {
+  text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
   author?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   authorId?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   bookType?: Resolver<Maybe<ResolversTypes['BookTypes']>, ParentType, ContextType>;
-  content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  content?: Resolver<Maybe<ResolversTypes['Content']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   published?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -163,6 +175,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type Resolvers<ContextType = any> = {
   BookTypes?: BookTypesResolvers;
+  Content?: ContentResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;

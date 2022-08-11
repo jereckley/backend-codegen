@@ -4,10 +4,14 @@ enum BookTypes {
   BATTLE
 }
 
+type Content {
+  text: String!
+}
+
 type Post {
   id:        ID!
   title:     String!
-  content:   String
+  content:   Content
   bookType:  BookTypes
   published: Boolean
   author:    User

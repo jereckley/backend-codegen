@@ -96,6 +96,9 @@ in codegen.yml
 
 
 in posts/type-resolvers.ts
+
+`npm run codegen`
+
 `
 import {Resolvers} from "../generated/graphql";
 import {BookTypesEnum} from "./types";
@@ -122,3 +125,50 @@ You can now see in the explorer the book Enum is now resolving
 
 see branch FIX_ENUM
 
+## Type typings
+
+Lets change the schema so we can understand more how this will help us
+
+lets update our schema in posts/posts.schema.graphql
+`
+type Content {
+  text: String!
+}
+
+type Post {
+  id:        ID!
+  title:     String!
+  content:   Content
+  bookType:  BookTypes
+  published: Boolean
+  author:    User
+  authorId:  Int
+}
+`
+
+`npm run codegen'
+
+
+now lets add a type resolver that makes this conversion in the posts/type-resolvers.ts
+`
+const content = (post: ResolvedPost) => {
+	return post.content ? {text: post.content}: null
+}
+
+export const postType: Resolvers['Post'] = {
+	content
+}
+`
+
+lastly lets update our resolvers.ts to have a POST type
+
+`
+export const resolvers: Resolvers = {
+	BookTypes: bookTypes,
+	Post: postType,
+	Query: {
+		getPosts,
+
+`
+
+see branch TYPE_TYPINGS
